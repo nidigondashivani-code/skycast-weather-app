@@ -1,0 +1,8 @@
+streamlit
+pandas
+requests
+schedule
+scikit-learn
+python-dotenv
+SQLAlchemy
+plotly
