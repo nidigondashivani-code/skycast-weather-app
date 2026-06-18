@@ -10,13 +10,18 @@ from database.weather_dao import get_weather_history, get_top_hottest_cities, ge
 from database.db_connection import init_db
 from services.prediction_service import predict_temperature
 from services.report_service import generate_weather_report
-from services.weather_service import fetch_weather_for_city, get_live_location_city
+from services.weather_service import fetch_weather_for_city, get_live_location_city, fetch_all_cities
 import config
 
 # Initialize DB
 init_db()
 
 st.set_page_config(page_title="SkyCast Monitoring", page_icon="🌤️", layout="wide")
+
+# Auto-seed database if empty (Crucial for Streamlit Cloud deployments)
+if not get_weather_history():
+    with st.spinner("Initializing cloud database telemetry for the first time..."):
+        fetch_all_cities()
 
 # Custom CSS for Premium Look
 st.markdown("""
